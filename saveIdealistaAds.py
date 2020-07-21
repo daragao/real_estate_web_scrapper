@@ -64,6 +64,14 @@ response = []
 while(numPage != totalPages+1):
     params['numPage'] = numPage
     resp_obj = req.post(url, params=params, headers=headers)
+    if(resp_obj.status_code != req.codes.ok):
+        print("FAILED REQUEST:")
+        print(resp_obj.status_code)
+        print(resp_obj.text)
+        print("----------------------------------")
+        print("----------------------------------")
+        print(json.dumps(response))
+        exit(1)
     response.append(resp_obj.json())
     totalPages = response[-1]['totalPages']
     numPage += 1
