@@ -2,3 +2,5 @@ secret.json
 scrap.json
 test.js
 .ipynb_checkpoints
+*.zip
+__pycache__

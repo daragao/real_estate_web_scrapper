@@ -1,0 +1,44 @@
+{
+  "version": "1.0",
+  "timestamp": "2020-08-01T15:08:35.192Z",
+  "requestContext": {
+    "requestId": "0312817b-fac4-4edd-9cee-11bc73ded718",
+    "functionArn": "arn:aws:lambda:us-east-2:008466035353:function:scrap_idealista:$LATEST",
+    "condition": "Success",
+    "approximateInvokeCount": 1
+  },
+  "requestPayload": {},
+  "responseContext": {
+    "statusCode": 200,
+    "executedVersion": "$LATEST"
+  },
+  "responsePayload": {
+    "status": 200,
+    "items": [
+      {
+        "price": 549900,
+        "address": "Centro%2C%20Penha%20de%20Fran%C3%A7a",
+        "id": "30629255",
+        "size": 148,
+        "url": "https://www.idealista.pt/en/imovel/30629255/",
+        "created": "01-08-2020 15:08:32"
+      },
+      {
+        "price": 1350000,
+        "address": "avenida%20do%20%C3%8Dndico%2C%2C%20Parque%20das%20Na%C3%A7%C3%B5es%2C%20Lisboa",
+        "id": "30629099",
+        "size": 170,
+        "url": "https://www.idealista.pt/en/imovel/30629099/",
+        "created": "01-08-2020 15:08:32"
+      },
+      {
+        "price": 899900,
+        "address": "Alvalade%2C%20Alvalade",
+        "id": "30627755",
+        "size": 335,
+        "url": "https://www.idealista.pt/en/imovel/30627755/",
+        "created": "01-08-2020 15:08:32"
+      }
+    ]
+  }
+}
