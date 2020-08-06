@@ -4,6 +4,7 @@ import boto3
 from decimal import Decimal
 
 
+# filter and update rows needing to be created and updated
 def add_updated_columns(table, items):
     id_field = 'item-id'
     id_arr = [it[id_field] for it in items]
