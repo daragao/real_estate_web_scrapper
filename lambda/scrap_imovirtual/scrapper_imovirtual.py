@@ -32,7 +32,7 @@ def imovirtual_article_to_json(art):
     if(len(price_str) == 0): price_str = None
 
     title = art.find('header', 'offer-item-header').find('span', 'offer-item-title').get_text().strip()
-    address = offer_details.find('p').find('span').next_sibling
+    address = offer_details.find('p').find('span').next_sibling.strip()
     size = Decimal(size_str)
     price = Decimal(price_str) if price_str != None else None
     advertising_link = art.get('data-url')
