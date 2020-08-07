@@ -55,6 +55,7 @@ def lambda_handler(event, context):
 
     # overwrites old values
     # TODO: have an array of changed values
+    print('Put {} items into table'.format(len(items)))
     with table.batch_writer() as batch:
         for it in items:
             batch.put_item(Item=it)
