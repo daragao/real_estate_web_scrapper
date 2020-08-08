@@ -20,7 +20,7 @@ def add_updated_columns(table, items):
     for it in scanned_items:
         old_items_map[it[id_field]] = it
         if 'price_update' not in it[id_field]:
-            it['price_update'] = [it['price']]
+            it['price_update'] = [Decimal(it['price'])]
         if 'date_update' not in it[id_field]:
             it['date_update'] = [it['created']]
 
@@ -32,7 +32,7 @@ def add_updated_columns(table, items):
             old_item = old_items_map[it[id_field]]
             if it['price'] != old_item['price']:
                 # price has been updated
-                old_item['price_update'].append(it['price'])
+                old_item['price_update'].append(Decimal(it['price']))
                 old_item['date_update'].append(it['created'])
                 it['price_update'] = old_item['price_update']
                 it['date_update'] = old_item['date_update']
