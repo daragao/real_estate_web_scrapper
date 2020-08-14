@@ -1,6 +1,7 @@
 import scrapper_imovirtual as scrapper
 import json
 import boto3
+import urllib
 from decimal import Decimal
 
 
@@ -20,7 +21,10 @@ def add_updated_columns(table, items):
     for it in scanned_items:
         old_items_map[it[id_field]] = it
         if 'price_update' not in it[id_field]:
-            it['price_update'] = [Decimal(it['price'])]
+            if it['price']:
+                it['price_update'] = [Decimal(it['price'])]
+            else:
+                it['price_update'] = [Decimal(-1)]
         if 'date_update' not in it[id_field]:
             it['date_update'] = [it['created']]
 
@@ -32,7 +36,10 @@ def add_updated_columns(table, items):
             old_item = old_items_map[it[id_field]]
             if it['price'] != old_item['price']:
                 # price has been updated
-                old_item['price_update'].append(Decimal(it['price']))
+                if it['price']:
+                    old_item['price_update'].append(Decimal(it['price']))
+                else:
+                    old_item['price_update'].append(Decimal(-1))
                 old_item['date_update'].append(it['created'])
                 it['price_update'] = old_item['price_update']
                 it['date_update'] = old_item['date_update']
@@ -60,7 +67,10 @@ def lambda_handler(event, context):
     new_items = add_updated_columns(table, items)
     put_items(table, new_items)
 
-    return { 'status': 200, 'items': items }
+    # make address url encoded to be read by geocode
+    for it in items:
+        it['address'] = urllib.parse.quote(it['address'])
+    return { 'status': 200, 'items': items, 'id_field': 'item-id', 'geocode_query_field': 'address'}
 
 class CustomJsonEncoder(json.JSONEncoder):
     def default(self, obj):
