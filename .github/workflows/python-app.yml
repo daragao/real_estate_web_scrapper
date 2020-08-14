@@ -34,5 +34,5 @@ jobs:
         echo "{}" >> deprecated/geocode_scrapped_idealista/secret.json
         echo "{}" >> geocode/secret.json
         echo "{}" >> idealista_api/secret.json
-        echo '{"uid": "hello", "cookie": {}}' >> scrap_idealista/scrap.json
+        echo '{"uid": "hello", "cookie": {"just":"here"}}' >> scrap_idealista/scrap.json
         ./run_tests.sh
