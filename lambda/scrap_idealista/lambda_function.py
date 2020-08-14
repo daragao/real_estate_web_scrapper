@@ -3,17 +3,17 @@ import boto3
 import json
 from decimal import Decimal
 
-# filter and update rows needing to be created and updated
-def add_updated_columns(table, items):
+def scan_items_by_id(table, id_arr):
     id_field = 'id'
-    id_arr = [it[id_field] for it in items]
-
     response = table.scan(
         AttributesToGet=[id_field,'price', 'created','price_update','date_update'],
         ScanFilter={id_field: {'AttributeValueList': id_arr, 'ComparisonOperator': 'IN'}}
     )
-    scanned_items = response['Items']
+    return response['Items']
 
+# filter and update rows needing to be created and updated
+def add_updated_columns(items, scanned_items):
+    id_field = 'id'
     #array to hash to be faster to look
     old_items_map = { }
     for it in scanned_items:
@@ -43,6 +43,12 @@ def add_updated_columns(table, items):
     return new_items
 
 
+def put_items(table, items):
+    print('Put {} items into table'.format(len(items)))
+    with table.batch_writer() as batch:
+        for it in items:
+            batch.put_item(Item=it)
+
 def lambda_handler(event, context):
     print('Received event: {}'.format(event))
 
@@ -52,13 +58,10 @@ def lambda_handler(event, context):
     items = scrapper.scrap()
 
     #add array with updated prices
-    items = add_updated_columns(table, items)
+    id_arr = [it['id'] for it in items]
+    scan_response = scan_items_by_id(table, id_arr)
+    items = add_updated_columns(items, scan_response['Items'])
 
-    # overwrites old values
-    # TODO: have an array of changed values
-    print('Put {} items into table'.format(len(items)))
-    with table.batch_writer() as batch:
-        for it in items:
-            batch.put_item(Item=it)
+    put_items(table, items)
 
     return { 'status': 200, 'items': items, 'id_field': 'id', 'geocode_query_field': 'address'}

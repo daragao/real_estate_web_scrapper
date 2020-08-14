@@ -46,8 +46,6 @@ class TestScrapIdealista(unittest.TestCase):
             "https://www.idealista.pt/en/comprar-casas/lisboa/com-tamanho-min_100,publicado_ultimas-48-horas",
             "https://www.idealista.pt/en/comprar-casas/lisboa/com-tamanho-min_100,publicado_ultimas-48-horas/pagina-2",
             "https://www.idealista.pt/en/comprar-casas/lisboa/com-tamanho-min_100,publicado_ultimas-48-horas/pagina-3",
-            "https://www.idealista.pt/en/comprar-casas/lisboa/com-tamanho-min_100,publicado_ultimas-48-horas/pagina-4",
-            "https://www.idealista.pt/en/comprar-casas/lisboa/com-tamanho-min_100,publicado_ultimas-48-horas/pagina-5"
         ]
         for i in range(1,3):
             f = open(local_path('dummy_page_{}.html'.format(i)), "rb")
