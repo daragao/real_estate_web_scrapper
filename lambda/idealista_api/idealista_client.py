@@ -93,9 +93,9 @@ def save_json(response):
     now = datetime.now()
     s2 = now.strftime(time_format)
 
-    json = json.dumps(response)
+    json_response = json.dumps(response)
     f = open(data_path + '/' + s2 + ".json","w")
-    f.write(json)
+    f.write(json_response)
     f.close()
 
 '''
