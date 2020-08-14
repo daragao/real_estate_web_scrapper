@@ -61,4 +61,4 @@ def lambda_handler(event, context):
         for it in items:
             batch.put_item(Item=it)
 
-    return { 'status': 200, 'items': items }
+    return { 'status': 200, 'items': items, 'id_field': 'id', 'geocode_query_field': 'address'}
