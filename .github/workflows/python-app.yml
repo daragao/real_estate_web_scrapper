@@ -31,8 +31,8 @@ jobs:
     - name: Run coverage.py script
       run: |
         cd lambda
-        echo "{}" >> lambda/deprecated/geocode_scrapped_idealista/secret.json
-        echo "{}" >> lambda/geocode/secret.json
-        echo "{}" >> lambda/idealista_api/secret.json
-        echo "{}" >> lambda/scrap_idealista/scrap.json
+        echo "{}" >> deprecated/geocode_scrapped_idealista/secret.json
+        echo "{}" >> geocode/secret.json
+        echo "{}" >> idealista_api/secret.json
+        echo "{}" >> scrap_idealista/scrap.json
         ./run_tests.sh
