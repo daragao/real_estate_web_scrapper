@@ -1,5 +1,10 @@
-# Idealista API Playground
+# AWS Web scrapping playgound
 
-Simple experiments with Idealista API
+Although the name of the repo has not changed, this has evolved into a more generic repo, about creating an AWS serveless pipeline.
 
-Plotly might not render in github I recommend using this: https://nbviewer.jupyter.org/github/daragao/idealista_api_playground/blob/master/idealista.ipynb
+Everything is done using python 3.7.
+
+The most interesting part of the repo at the moment is the [`lambda/`](lambda) directory. That is where the Lambda funcitons pushed ot AWS live.
+Basically the pipeline is a function that scraps a website and stores a json with relevant data in an dynamodb, and a function that tries to find the geo location of each add saved to the db.
+
+Nothing very fancy, but all in good fun
