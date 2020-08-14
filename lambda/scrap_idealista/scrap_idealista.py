@@ -3,15 +3,20 @@ from bs4 import BeautifulSoup
 from datetime import datetime
 import json
 import urllib
+import os
 
 def json_to_cookie(cookie_json):
     return '; '.join(['{}={}'.format(k,v) for k, v in cookie_json.items()])
+
+def local_path(filename):
+    __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
+    return os.path.join(__location__, filename)
 
 def scrap():
     ########################
     # Load setup details (cookie)
     ########################
-    with open("scrap.json") as json_file:
+    with open(local_path("scrap.json")) as json_file:
         scrap_json = json.load(json_file)
     print('Loaded scrap json:\n\tUID: {}'.format(scrap_json['uid']))
 

@@ -4,7 +4,7 @@
 set -e
 
 ## declare an array variable
-declare -a arr=("scrap_imovirtual" "geocode")
+declare -a arr=("scrap_idealista" "scrap_imovirtual" "geocode")
 
 ## now loop through the above array
 for i in "${arr[@]}"
