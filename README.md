@@ -1,4 +1,4 @@
-# AWS Web scrapping playgound
+# AWS real estate Web scrapping playgound
 
 Although the name of the repo has not changed, this has evolved into a more generic repo, about creating an AWS serveless pipeline.
 
