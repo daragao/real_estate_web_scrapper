@@ -1,0 +1,25 @@
+{
+ "data": [
+  {
+   "latitude": 38.709375,
+   "longitude": -9.227196,
+   "type": "street",
+   "name": "Largo Maria Leonor",
+   "number": null,
+   "postal_code": null,
+   "street": "Largo Maria Leonor",
+   "confidence": 1,
+   "region": "Lisboa",
+   "region_code": "LI",
+   "county": null,
+   "locality": null,
+   "administrative_area": null,
+   "neighbourhood": null,
+   "country": "Portugal",
+   "country_code": "PRT",
+   "continent": "Europe",
+   "label": "Largo Maria Leonor, Portugal",
+   "map_url": "https://map.positionstack.com/export/embed.html?bbox=-9.22725,38.708535,-9.22674,38.709433&layer=mapnik&marker=38.709375,-9.227196"
+  }
+ ]
+}
