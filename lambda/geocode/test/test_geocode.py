@@ -19,7 +19,7 @@ class TestGeocode(unittest.TestCase):
     @responses.activate
     def test_geocode_data(self):
         url = 'http://api.positionstack.com/v1/forward?access_key=81b633155ad885d61fbd4123bae2e096&query=Largo Maria Leonor&country=PT&region=Lisboa'
-        responses.add(responses.GET, url, body='{}', status=200)
+        responses.add(responses.GET, url, body='{}', status=200, match_querystring=False)
 
         secret = geocode.load_secret()
         key = secret['positionstack']['key']
@@ -29,7 +29,7 @@ class TestGeocode(unittest.TestCase):
     @responses.activate
     def test_geocode_data_fail(self):
         url = 'http://api.positionstack.com/v1/forward?access_key=81b633155ad885d61fbd4123bae2e096&query=Largo Maria Leonor&country=PT&region=Lisboa'
-        responses.add(responses.GET, url, body='{}', status=400)
+        responses.add(responses.GET, url, body='{}', status=400, match_querystring=False)
 
         secret = geocode.load_secret()
         key = secret['positionstack']['key']

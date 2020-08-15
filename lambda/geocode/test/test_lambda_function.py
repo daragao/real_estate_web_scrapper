@@ -29,6 +29,7 @@ class TestLambdaFunction(unittest.TestCase):
             self.assertIsInstance(d['geo'][0]['longitude'], Decimal)
             self.assertIsInstance(d['geo'][0]['confidence'], Decimal)
 
+    @unittest.skip("NEED TO MOCK AWS BOTO3 OR ELSE IT WRITES TO DB")
     @responses.activate
     def test_lambda_function(self):
         __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
@@ -58,7 +59,6 @@ class TestLambdaFunction(unittest.TestCase):
         self.assertIn('status', result)
         self.assertEqual(result['status'], 200)
 
-    @unittest.skip("NEED TO MOCK AWS BOTO3 OR ELSE IT WRITES TO DB")
     def test_lambda_function_fail_no_property(self):
         __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
         data_filename = os.path.join(__location__, 'idealista_scrapper_event.json')
