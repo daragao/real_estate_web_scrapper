@@ -36,3 +36,8 @@ jobs:
         echo '{"api_key":"", "secret":"", "positionstack": { "key": "hello" }}' >> idealista_api/secret.json
         echo '{"uid": "hello", "cookie": {"just":"here"}}' >> scrap_idealista/scrap.json
         ./run_tests.sh
+        coverage xml
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v1
+      with:
+        file: ./lambda/coverage.xml
