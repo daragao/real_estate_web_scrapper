@@ -1,3 +1,5 @@
+[![codecov](https://codecov.io/gh/daragao/real_estate_web_scrapper/branch/master/graph/badge.svg)](https://codecov.io/gh/daragao/real_estate_web_scrapper)
+
 # AWS real estate Web scrapping playgound
 
 Although the name of the repo has not changed, this has evolved into a more generic repo, about creating an AWS serveless pipeline.
