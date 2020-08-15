@@ -26,7 +26,10 @@ def put_items(table, items):
             batch.put_item(Item=it)
 
 def lambda_handler(event, context):
-    payload = event['responsePayload']
+    if 'responsePayload' in event:
+        payload = event['responsePayload']
+    else:
+        payload = event['Input']['Payload']
     if 'items' not in payload:
         return { 'status': 500, 'error': 'no items found in payload' }
     if 'id_field' not in payload:
