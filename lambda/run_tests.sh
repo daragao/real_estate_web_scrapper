@@ -18,6 +18,7 @@ do
    # python -m unittest discover -v $i -b
    coverage run --source=$i --omit=$i/test/* -m unittest discover -v $i -b
    coverage report -m
+   coverage xml -o coverage_$i.xml
    echo "=========================================="
    # or do whatever with individual element of the array
 done
