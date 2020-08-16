@@ -2,7 +2,6 @@ import requests
 from bs4 import BeautifulSoup
 from datetime import datetime
 import json
-import urllib
 import os
 
 def json_to_cookie(cookie_json):
@@ -70,7 +69,7 @@ def ad_to_dict(ad):
     item_id = ad.get('data-adid')
 
     price = int(item_price.get_text()[:-1].replace(',',''))
-    address = urllib.parse.quote(item_title[item_title.find(' in ')+4:]) if item_title.find(' in ') != - 1 else item_title
+    address = item_title[item_title.find(' in ')+4:] if item_title.find(' in ') != - 1 else item_title
     size = int(item_detail[1].get_text()[:-3].replace(',','')) if len(item_detail) > 1 else print('{} Failed to fetch area!'.format(item_id))
     item_url = 'https://www.idealista.pt{}'.format(item_link.get('href'))
 

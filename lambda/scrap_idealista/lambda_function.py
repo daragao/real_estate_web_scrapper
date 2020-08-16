@@ -1,6 +1,7 @@
 import scrap_idealista as scrapper
 import boto3
 import json
+import urllib
 from decimal import Decimal
 
 def scan_items_by_id(table, id_arr):
@@ -60,8 +61,11 @@ def lambda_handler(event, context):
     #add array with updated prices
     id_arr = [it['id'] for it in items]
     scan_response = scan_items_by_id(table, id_arr)
-    items = add_updated_columns(items, scan_response['Items'])
+    items = add_updated_columns(items, scan_response)
 
     put_items(table, items)
 
+    # make address url encoded to be read by geocode
+    for it in items:
+        it['address'] = urllib.parse.quote(it['address'])
     return { 'status': 200, 'items': items, 'id_field': 'id', 'geocode_query_field': 'address'}

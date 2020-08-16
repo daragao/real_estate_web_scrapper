@@ -29,6 +29,8 @@ def parse_geocode_data(geo_data):
     for g in geo_data['data']:
         if 'latitude' not in g or 'longitude' not in g or 'confidence' not in g:
             print('Failed to parse geo:\n\t{}'.format(g))
+            if len(g) == 0: # this means it is an empty array
+                g = {}
             g['parsing_failed'] = True
             continue
         g['latitude'] = Decimal(str(g['latitude']))

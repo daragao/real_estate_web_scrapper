@@ -29,7 +29,7 @@ def lambda_handler(event, context):
     if 'responsePayload' in event:
         payload = event['responsePayload']
     else:
-        payload = event['Input']['Payload']
+        payload = event
     if 'items' not in payload:
         return { 'status': 500, 'error': 'no items found in payload' }
     if 'id_field' not in payload:
