@@ -4,27 +4,23 @@ import boto3
 import urllib
 from decimal import Decimal
 
-
-# filter and update rows needing to be created and updated
-def add_updated_columns(table, items):
-    id_field = 'item-id'
-    id_arr = [it[id_field] for it in items]
-
+def scan_items_by_id(table, id_arr):
+    id_field = 'id'
     response = table.scan(
         AttributesToGet=[id_field,'price', 'created','price_update','date_update'],
         ScanFilter={id_field: {'AttributeValueList': id_arr, 'ComparisonOperator': 'IN'}}
     )
-    scanned_items = response['Items']
+    return response['Items']
 
+# filter and update rows needing to be created and updated
+def add_updated_columns(items, scanned_items):
+    id_field = 'id'
     #array to hash to be faster to look
     old_items_map = { }
     for it in scanned_items:
         old_items_map[it[id_field]] = it
         if 'price_update' not in it[id_field]:
-            if it['price']:
-                it['price_update'] = [Decimal(it['price'])]
-            else:
-                it['price_update'] = [Decimal(-1)]
+            it['price_update'] = [Decimal(it['price'])]
         if 'date_update' not in it[id_field]:
             it['date_update'] = [it['created']]
 
@@ -36,10 +32,7 @@ def add_updated_columns(table, items):
             old_item = old_items_map[it[id_field]]
             if it['price'] != old_item['price']:
                 # price has been updated
-                if it['price']:
-                    old_item['price_update'].append(Decimal(it['price']))
-                else:
-                    old_item['price_update'].append(Decimal(-1))
+                old_item['price_update'].append(Decimal(it['price']))
                 old_item['date_update'].append(it['created'])
                 it['price_update'] = old_item['price_update']
                 it['date_update'] = old_item['date_update']
@@ -60,12 +53,15 @@ def put_items(table, items):
 def lambda_handler(event, context):
     print('Received event: {}'.format(event))
 
-    items = scrapper.scrap_imovirtual()
-
     dynamodb = boto3.resource('dynamodb')
     table = dynamodb.Table('imovirtual_scrap')
-    new_items = add_updated_columns(table, items)
-    put_items(table, new_items)
+
+    items = scrapper.scrap_imovirtual()
+
+    #add array with updated prices
+    id_arr = [it['id'] for it in items]
+    scan_response = scan_items_by_id(table, id_arr)
+    items = add_updated_columns(items, scan_response)
 
     # make address url encoded to be read by geocode
     for it in items:
