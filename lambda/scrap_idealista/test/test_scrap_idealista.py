@@ -40,6 +40,28 @@ class TestScrapIdealista(unittest.TestCase):
         self.assertEqual(len(items), 133)
 
     @responses.activate
+    def test_scrap_no_pagination(self):
+
+        req_urls = [
+            "https://www.idealista.pt/en/comprar-casas/lisboa/com-tamanho-min_100,publicado_ultimas-48-horas",
+        ]
+        f = open(local_path('no_pagination.html'), "rb")
+        content = f.read().decode(encoding="utf-8")
+        f.close()
+        responses.add(responses.GET, req_urls[0], body=content, status=200)
+
+        items = si.scrap()
+
+        for it in items:
+            self.assertIn('price', it)
+            self.assertIn('address', it)
+            self.assertIn('id', it)
+            self.assertIn('size', it)
+            self.assertIn('url', it)
+            self.assertIn('created', it)
+        self.assertEqual(len(items), 26)
+
+    @responses.activate
     def test_scrap_400(self):
 
         req_urls = [

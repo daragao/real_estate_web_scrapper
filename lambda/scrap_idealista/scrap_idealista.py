@@ -56,6 +56,9 @@ def get_articles():
         print('\tArticles/Ads found: {}'.format(len(articles)))
         pagination = soup.find('div', 'pagination')
 
+        if(not pagination):
+            break
+
         next_page_tag = pagination.find('a', 'icon-arrow-right-after')
         url = next_page_tag.get('href') if next_page_tag else None
 
