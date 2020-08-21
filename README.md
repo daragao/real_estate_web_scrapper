@@ -10,3 +10,5 @@ The most interesting part of the repo at the moment is the [`lambda/`](lambda) d
 Basically the pipeline is a function that scraps a website and stores a json with relevant data in an dynamodb, and a function that tries to find the geo location of each add saved to the db.
 
 Nothing very fancy, but all in good fun
+
+[Notebook with count of data scrapped](https://github.com/daragao/real_estate_web_scrapper/blob/master/notebooks/aws_scrapped.ipynb)
